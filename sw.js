@@ -1,6 +1,6 @@
 // Offline-first service worker for the app shell.
 // Bump CACHE when any app file changes so installed copies update.
-const CACHE = 'giving-envelopes-v1';
+const CACHE = 'giving-envelopes-v2';
 const SHELL = [
   './',
   'index.html',

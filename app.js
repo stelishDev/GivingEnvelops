@@ -7,9 +7,11 @@ const el = {
   listCard: $('listCard'), search: $('search'), congFilter: $('congFilter'), selVisible: $('selVisible'), selNone: $('selNone'),
   count: $('count'), list: $('list'), printCard: $('printCard'), printBtn: $('printBtn'),
   guides: $('guides'), empty: $('empty'), sheets: $('sheets'), installBtn: $('installBtn'),
+  tplRadios: document.querySelectorAll('input[name="tpl"]'),
 };
 
 const CACHE_KEY = 'giving-envelopes.table.v1';
+const TEMPLATE_KEY = 'giving-envelopes.template.v1';
 const FUNDS = ['Freewill Giving', 'Special Offering', "Pastor’s Fund", 'Farm Fund', 'Building Fund', 'Kai Fund'];
 
 const state = {
@@ -18,6 +20,7 @@ const state = {
   fileName: '',
   givers: [],         // {id, cong, first, last}
   selected: new Set(),
+  template: 'freewill', // 'freewill' | 'special'
 };
 
 /* ---------- helpers ---------- */
@@ -182,9 +185,36 @@ function optsEl(spacer) {
   return o;
 }
 
-function envelopeEl(g, dateText) {
+const TITLE = 'MT ROSKILL EVANGELICAL FELLOWSHIP';
+
+// "Label: ______ suffix" row used by the Special Offering envelope.
+function soLine(label, lineClass, suffix) {
+  const r = div('so-row');
+  r.append(div('', label), div('so-line ' + lineClass));
+  if (suffix) r.append(div('', suffix));
+  return r;
+}
+
+function specialEnvelopeEl(g, dateText) {
   const env = div('envelope');
-  env.append(div('env-title', 'MT ROSKILL EVANGELICAL FELLOWSHIP'));
+  const box = div('so-box');
+  box.append(div('so-title', TITLE));
+  box.append(div('so-name', `${g.cong} ${g.first} ${g.last}`.replace(/\s+/g, ' ').trim()));
+  box.append(div('so-date', 'Date:  ' + dateText));
+  box.append(soLine('Special Offering Total:', 'w1', '(Given Weekly)'));
+  box.append(soLine('Special Offering Total:', 'w1', '(Given Today)'));
+  const pay = div('so-row');
+  pay.append(optsEl(false));
+  box.append(pay);
+  box.append(soLine('Overall Total:', 'w2', ''));
+  env.append(box);
+  return env;
+}
+
+function envelopeEl(g, dateText) {
+  if (state.template === 'special') return specialEnvelopeEl(g, dateText);
+  const env = div('envelope');
+  env.append(div('env-title', TITLE));
   const name = div('env-name');
   name.append(div('cong', g.cong), div('', `${g.first} ${g.last}`.trim()));
   env.append(name);
@@ -222,6 +252,13 @@ el.fileInput.addEventListener('change', () => { if (el.fileInput.files[0]) loadF
 ['dragleave', 'drop'].forEach((t) => el.drop.addEventListener(t, (e) => { e.preventDefault(); el.drop.classList.remove('over'); }));
 el.drop.addEventListener('drop', (e) => { const f = e.dataTransfer.files[0]; if (f) loadFile(f); });
 el.drop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.fileInput.click(); } });
+
+el.tplRadios.forEach((r) => r.addEventListener('change', () => {
+  if (!r.checked) return;
+  state.template = r.value;
+  try { localStorage.setItem(TEMPLATE_KEY, r.value); } catch { /* ignore */ }
+  renderSheets();
+}));
 
 [el.colFirst, el.colLast, el.colCong].forEach((s) => s.addEventListener('change', rebuildGivers));
 el.dateInput.addEventListener('change', renderSheets);
@@ -263,6 +300,13 @@ if ('serviceWorker' in navigator) {
 
 /* ---------- init ---------- */
 el.dateInput.value = nextSundayISO();
+try {
+  const t = localStorage.getItem(TEMPLATE_KEY);
+  if (t === 'freewill' || t === 'special') {
+    state.template = t;
+    el.tplRadios.forEach((r) => { r.checked = r.value === t; });
+  }
+} catch { /* ignore */ }
 try {
   const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
   if (cached && Array.isArray(cached.table)) applyTable(cached.table, cached.fileName, { fromCache: true });

@@ -8,6 +8,9 @@ No server, no accounts, no dependencies. The spreadsheet never leaves the comput
 
 ## Using it
 
+0. Pick the **Envelope type** at the top: **Freewill** (the full fund list) or **Special offering**
+   (boxed layout with Given Weekly / Given Today totals, Cash / D/C and an Overall Total).
+   The choice is remembered.
 1. Choose (or drag in) the spreadsheet — `.xlsx` or `.csv`. Columns are detected from the
    header row (`Christian Name:`, `Surname:`, `CONG`); change them in step 2 if needed.
 2. Check the envelope date (defaults to the coming Sunday).

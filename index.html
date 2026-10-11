@@ -20,6 +20,14 @@
     <main class="layout">
       <aside class="panel">
         <section class="card">
+          <h2>Envelope type</h2>
+          <div class="seg" role="radiogroup" aria-label="Envelope type">
+            <label><input type="radio" name="tpl" value="freewill" checked><span>Freewill</span></label>
+            <label><input type="radio" name="tpl" value="special"><span>Special offering</span></label>
+          </div>
+        </section>
+
+        <section class="card">
           <h2>1. Spreadsheet</h2>
           <label id="drop" class="drop" tabindex="0">
             <input id="fileInput" type="file" accept=".xlsx,.csv,.txt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv" hidden>
