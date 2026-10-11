@@ -199,7 +199,7 @@ function specialEnvelopeEl(g, dateText) {
   const env = div('envelope');
   const box = div('so-box');
   box.append(div('so-title', TITLE));
-  box.append(div('so-name', `${g.cong} ${g.first} ${g.last}`.replace(/\s+/g, ' ').trim()));
+  box.append(div('so-name', `${g.first} ${g.last}`.trim()));
   box.append(div('so-date', 'Date:  ' + dateText));
   box.append(soLine('Special Offering Total:', 'w1', '(Given Weekly)'));
   box.append(soLine('Special Offering Total:', 'w1', '(Given Today)'));
@@ -216,7 +216,7 @@ function envelopeEl(g, dateText) {
   const env = div('envelope');
   env.append(div('env-title', TITLE));
   const name = div('env-name');
-  name.append(div('cong', g.cong), div('', `${g.first} ${g.last}`.trim()));
+  name.textContent = `${g.first} ${g.last}`.trim();
   env.append(name);
   env.append(div('env-date', 'Date:  ' + dateText));
   const rows = div('env-rows');

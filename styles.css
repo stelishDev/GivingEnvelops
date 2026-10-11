@@ -98,9 +98,8 @@ select, input[type="date"], input[type="search"] {
 .guides .envelope:nth-child(-n+2) { border-bottom: .25mm dashed #aaa; }
 
 .env-title { text-align: center; font-weight: 700; font-size: 12.5pt; letter-spacing: .02em; }
-.env-name { margin-top: 3mm; font-weight: 700; font-size: 14pt; display: flex; gap: 4mm; align-items: baseline; }
-.env-name .cong { min-width: 7mm; }
-.env-date { margin-top: 3mm; font-size: 10.5pt; }
+.env-name { margin-top: 3mm; font-weight: 700; font-size: 14pt; text-align: center; }
+.env-date { margin-top: 2.5mm; font-size: 14pt; text-align: center; }
 .env-rows { margin-top: 3mm; display: flex; flex-direction: column; flex: 1; justify-content: space-between; padding-bottom: 2mm; }
 .row { display: flex; align-items: flex-end; gap: 2.5mm; font-size: 10.5pt; line-height: 1; }
 .row .label { width: 32mm; flex: none; }
