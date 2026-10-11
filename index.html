@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giving Envelopes</title>
+  <meta name="theme-color" content="#1f3a5f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-ui">
+    <header class="topbar">
+      <h1>Giving Envelopes</h1>
+      <button id="installBtn" class="btn ghost" hidden>Install app</button>
+    </header>
+
+    <main class="layout">
+      <aside class="panel">
+        <section class="card">
+          <h2>1. Spreadsheet</h2>
+          <label id="drop" class="drop" tabindex="0">
+            <input id="fileInput" type="file" accept=".xlsx,.csv,.txt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv" hidden>
+            <strong>Choose a spreadsheet</strong>
+            <span>or drag &amp; drop it here (.xlsx or .csv)</span>
+          </label>
+          <p id="status" class="status" role="status">No spreadsheet loaded yet.</p>
+          <button id="clearBtn" class="btn ghost small" hidden>Forget saved list</button>
+        </section>
+
+        <section class="card" id="mapCard" hidden>
+          <h2>2. Columns &amp; date</h2>
+          <div class="grid2">
+            <label>Christian name<select id="colFirst"></select></label>
+            <label>Surname<select id="colLast"></select></label>
+            <label>Cong. number<select id="colCong"></select></label>
+            <label>Envelope date<input id="dateInput" type="date"></label>
+          </div>
+        </section>
+
+        <section class="card" id="listCard" hidden>
+          <h2>3. Choose givers</h2>
+          <div class="toolbar">
+            <input id="search" type="search" placeholder="Search name…" aria-label="Search names">
+            <select id="congFilter" aria-label="Filter by cong. number"></select>
+          </div>
+          <div class="toolbar">
+            <button id="selVisible" class="btn small">Select shown</button>
+            <button id="selNone" class="btn small">Clear all</button>
+            <span id="count" class="count"></span>
+          </div>
+          <ul id="list" class="list"></ul>
+        </section>
+
+        <section class="card sticky" id="printCard" hidden>
+          <button id="printBtn" class="btn primary" disabled>Print envelopes</button>
+          <p class="hint">Prints 4 envelopes per A4 sheet (landscape). Set printer scale to 100% / “Actual size” and margins to “None”.</p>
+        </section>
+      </aside>
+
+      <section class="preview-wrap">
+        <div class="preview-head">
+          <h2>Preview</h2>
+          <label class="check"><input id="guides" type="checkbox" checked> Cut guides</label>
+        </div>
+        <div id="empty" class="empty">Load a spreadsheet and tick the people you want envelopes for.</div>
+        <div id="sheets" class="sheets"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Print area is the same #sheets element; UI is hidden in print CSS. -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
