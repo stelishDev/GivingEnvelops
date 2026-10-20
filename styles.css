@@ -98,7 +98,8 @@ select, input[type="date"], input[type="search"] {
 .guides .envelope:nth-child(-n+2) { border-bottom: .25mm dashed #aaa; }
 
 .env-title { text-align: center; font-weight: 700; font-size: 12.5pt; letter-spacing: .02em; }
-.env-name { margin-top: 3mm; font-weight: 700; font-size: 14pt; text-align: center; }
+.env-name { position: relative; margin-top: 3mm; font-weight: 700; font-size: 14pt; text-align: center; }
+.cong-num { position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-weight: 700; }
 .env-date { margin-top: 2.5mm; font-size: 14pt; text-align: center; }
 .env-rows { margin-top: 3mm; display: flex; flex-direction: column; flex: 1; justify-content: space-between; padding-bottom: 2mm; }
 .row { display: flex; align-items: flex-end; gap: 2.5mm; font-size: 10.5pt; line-height: 1; }
@@ -116,6 +117,7 @@ select, input[type="date"], input[type="search"] {
   text-align: center; font-size: 12pt; padding: 2mm 3mm;
 }
 .so-title, .so-name { font-weight: 700; }
+.so-name { position: relative; align-self: stretch; }
 .so-row { display: flex; align-items: flex-end; justify-content: center; gap: 2mm; white-space: nowrap; line-height: 1; }
 .so-line { border-bottom: .3mm solid #000; height: 4.5mm; }
 .so-line.w1 { width: 40mm; }

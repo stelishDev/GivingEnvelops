@@ -195,11 +195,18 @@ function soLine(label, lineClass, suffix) {
   return r;
 }
 
+// Name line: name centered, cong. number pinned to the far right.
+function nameEl(cls, g) {
+  const n = div(cls, `${g.first} ${g.last}`.trim());
+  if (g.cong) n.append(div('cong-num', g.cong));
+  return n;
+}
+
 function specialEnvelopeEl(g, dateText) {
   const env = div('envelope');
   const box = div('so-box');
   box.append(div('so-title', TITLE));
-  box.append(div('so-name', `${g.first} ${g.last}`.trim()));
+  box.append(nameEl('so-name', g));
   box.append(div('so-date', 'Date:  ' + dateText));
   box.append(soLine('Special Offering Total:', 'w1', '(Given Weekly)'));
   box.append(soLine('Special Offering Total:', 'w1', '(Given Today)'));
@@ -215,9 +222,7 @@ function envelopeEl(g, dateText) {
   if (state.template === 'special') return specialEnvelopeEl(g, dateText);
   const env = div('envelope');
   env.append(div('env-title', TITLE));
-  const name = div('env-name');
-  name.textContent = `${g.first} ${g.last}`.trim();
-  env.append(name);
+  env.append(nameEl('env-name', g));
   env.append(div('env-date', 'Date:  ' + dateText));
   const rows = div('env-rows');
   for (const f of FUNDS) {

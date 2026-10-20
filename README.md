@@ -18,7 +18,7 @@ No server, no accounts, no dependencies. The spreadsheet never leaves the comput
 4. **Print envelopes.** In the print dialog use **A4, landscape, scale 100% / Actual size,
    margins None**. Cut along the dashed guides (switch them off with *Cut guides*).
 
-Each envelope shows: cong. number and name (`9  Abel Anderson`), the date, the six fund
+Each envelope shows: the name (centered) with the cong. number at the far right, the date, the six fund
 lines with Cash / D/C boxes, and a Total line — matching `Freewill Giving Envelopes.docx`.
 
 The last loaded list is remembered in the browser; *Forget saved list* removes it. Choose the
